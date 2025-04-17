@@ -30,10 +30,10 @@ class SatelliteRain:
         self.remote_dir = f"/now/netcdf/{self.year}/{self.month}/{self.day}"
 
         # database PostgreSQL
-        self.PG_HOST = "localhost"
+        self.PG_HOST = "192.168.12.135"
         self.PG_DB = "gsmap_db"
-        self.PG_USER = "postgres"
-        self.PG_PASSWORD = "112130"
+        self.PG_USER = "hydro"
+        self.PG_PASSWORD = "Hydr0@123"
         self.PG_PORT = "5432"
 
     def download_gsmap_data(self, max_retries=10, wait_sec=60):
