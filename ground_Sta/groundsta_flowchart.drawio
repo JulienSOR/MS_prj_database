@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0" version="26.1.3">
+  <diagram name="Page-1" id="mlTAAc7unh-mrJzpG7Fq">
+    <mxGraphModel dx="826" dy="1655" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-2" target="kHk-Z9aCozvSdcgEq3JP-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-2" target="kHk-Z9aCozvSdcgEq3JP-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-2" target="kHk-Z9aCozvSdcgEq3JP-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="90" />
+              <mxPoint x="600" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-2" value="Start" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="10" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-4" target="kHk-Z9aCozvSdcgEq3JP-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-4" value="เชื่อมต่อ PostgreSQL" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="450" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-5" target="kHk-Z9aCozvSdcgEq3JP-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-5" value="ดึงไฟล์ข้อมูลจาก API" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="230" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-7" target="kHk-Z9aCozvSdcgEq3JP-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="200" />
+              <mxPoint x="370" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-7" value="สถาบันสารสนเทศทรัพยากรน้ำ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="200" />
+              <mxPoint x="371" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-8" value="กรมทรัพยากรน้ำ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-9" target="kHk-Z9aCozvSdcgEq3JP-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-9" value="กรมอุตุนิยมวิทยา" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="600" y="200" />
+              <mxPoint x="371" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-10" value="กรมชลประทาน" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-2" target="kHk-Z9aCozvSdcgEq3JP-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="90" />
+              <mxPoint x="150" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-20" target="kHk-Z9aCozvSdcgEq3JP-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-20" value="สร้างฐานข้อมูล Database&lt;br&gt;&lt;div&gt;-rainfall&lt;/div&gt;&lt;div&gt;-waterlevel&lt;/div&gt;&lt;div&gt;-discharge&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="550" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-22" target="kHk-Z9aCozvSdcgEq3JP-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-22" value="จัดเรียงข้อมูลที่ได้จากการดึงเป็น Time series" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="340" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-24" target="kHk-Z9aCozvSdcgEq3JP-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-24" value="สร้างตารางใน Database ไว้เก็บข้อมูล" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="267.5" y="670" width="205" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="kHk-Z9aCozvSdcgEq3JP-28" target="kHk-Z9aCozvSdcgEq3JP-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-28" value="นำข้อมูลที่จัดเรียงแล้วมาใส่ในตารางของฐานข้อมูล" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="255" y="780" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kHk-Z9aCozvSdcgEq3JP-30" value="End" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
