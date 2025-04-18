@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import psycopg2
 import time
 
-class SatelliteRain:
+class SatelliteRain_now_realtime:
     def __init__(self, lat_max, lat_min, long_max, long_min, name_sat):
         # พิกัด pixel index
         self.lat_max = lat_max
@@ -179,3 +179,7 @@ class SatelliteRain:
         date_str = now.strftime("%Y%m%d")
         file_time = f"{date_str}.{hour_str}{rounded_minute}"
         return file_time,year_str,month_str,day_str
+
+class SatelliteRain_now:
+    def __init__(self):
+        pass
