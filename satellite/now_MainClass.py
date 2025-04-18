@@ -27,7 +27,7 @@ class SatelliteRain_now_realtime:
         self.ftp_host = "hokusai.eorc.jaxa.jp"
         self.username = "rainmap"
         self.password = "Niskur+1404"
-        self.remote_dir = f"/now/netcdf/{self.year}/{self.month}/{self.day}"
+        self.remote_dir = f"/{self.name_sat}/netcdf/{self.year}/{self.month}/{self.day}"
 
         # database PostgreSQL
         self.PG_HOST = "192.168.12.135"
@@ -181,5 +181,164 @@ class SatelliteRain_now_realtime:
         return file_time,year_str,month_str,day_str
 
 class SatelliteRain_now:
-    def __init__(self):
-        pass
+    def __init__(self, lat_max, lat_min, long_max, long_min, name_sat):
+        # พิกัด pixel index
+        self.lat_max = lat_max
+        self.lat_min = lat_min
+        self.long_max = long_max
+        self.long_min = long_min
+        self.X1 = int((90 - round(lat_max, 1)) * 10)
+        self.X2 = int((90 - round(lat_min, 1)) * 10)
+        self.Y1 = int((180 + round(long_max, 1)) * 10)
+        self.Y2 = int((180 + round(long_min, 1)) * 10)
+
+        self.name_sat = name_sat
+
+        # database PostgreSQL
+        self.PG_HOST = "192.168.12.135"
+        self.PG_DB = "gsmap_db"
+        self.PG_USER = "hydro"
+        self.PG_PASSWORD = "Hydr0@123"
+        self.PG_PORT = "5432"
+
+
+    def setnamefile_bytime(self, year, month, day, hour, minute):
+        self.year = year
+        self.month = month
+        self.day = day
+        self.hour = hour
+        self.minute = minute
+        self.file_time = f"{self.year}{self.month}{self.day}.{self.hour}{self.minute}"
+        file_name = f"gsmap_now_rain.{self.file_time}.nc"
+        return file_name
+
+    def download_gsmap_data(self,file_name):
+        print(f"โหลดไฟล์ {file_name} ...")
+
+        # FTP Connect
+        ftp_host = "hokusai.eorc.jaxa.jp"
+        username = "rainmap"
+        password = "Niskur+1404"
+        remote_dir = f"/{self.name_sat}/netcdf/{self.year}/{self.month}/{self.day}"
+
+        ftp = FTP(ftp_host)
+        ftp.login(username, password)
+        ftp.cwd(remote_dir)
+        file_list = ftp.nlst()
+
+        if file_name in file_list:
+            buffer = BytesIO()
+            ftp.retrbinary(f"RETR {file_name}", buffer.write)
+            ftp.quit()
+
+            buffer.seek(0)
+            print(f"โหลดไฟล์ {file_name} เข้า RAM สำเร็จ!")
+            dataset = Dataset(file_name, mode='r', memory=buffer.read())
+            return dataset
+
+        ftp.quit()
+        return
+
+    def crop_gsmap_data(self,dataset,file_name):
+        # ใส่ safety check:
+        x1, x2 = sorted([self.X1, self.X2])
+        y1, y2 = sorted([self.Y1, self.Y2])
+        # เช็คคอลัมป์ของข้อมูล
+        if 'hourlyPrecipRate' in dataset.variables:
+            rain_var = 'hourlyPrecipRate'
+        elif 'hourlyPrecipRateGC' in dataset.variables:
+            rain_var = 'hourlyPrecipRateGC'
+        else:
+            print(f"Error: Could not find rainfall variable in {file_name}")
+            return
+        rain_data = dataset.variables[rain_var][:]
+
+        if rain_data.ndim == 3:
+            rain_data = rain_data[0]  # First time step if applicable
+        rain_data = rain_data[::-1]  # Flip if needed
+        cropped_data = np.ma.filled(rain_data[x1:x2, y1:y2].astype(float), fill_value=np.nan)
+        return cropped_data
+
+    def insert_to_db(self, cropped_data, file_name):
+
+        # 1. Connect to default DB to create new DB (optional)
+        conn = psycopg2.connect(host=self.PG_HOST, dbname="postgres", user=self.PG_USER, password=self.PG_PASSWORD, port=self.PG_PORT)
+        conn.autocommit = True
+        cur = conn.cursor()
+
+        # 2. Create database (if not exist)
+        cur.execute(f"SELECT 1 FROM pg_database WHERE datname = '{self.PG_DB}'")
+        exists = cur.fetchone()
+        if not exists:
+            cur.execute(f"CREATE DATABASE {self.PG_DB}")
+            print(f"✅ Created database: {self.PG_DB}")
+        cur.close()
+        conn.close()
+
+        # 3. Connect to newly created DB to create table
+        conn = psycopg2.connect(host=self.PG_HOST, dbname=self.PG_DB, user=self.PG_USER, password=self.PG_PASSWORD, port=self.PG_PORT)
+        cur = conn.cursor()
+
+        cur.execute(f"""
+                CREATE TABLE IF NOT EXISTS {self.name_sat}_rainfall (
+                    id SERIAL PRIMARY KEY,
+                    file_name TEXT,
+                    date DATE,
+                    time TEXT,
+                    lat DOUBLE PRECISION,
+                    lon DOUBLE PRECISION,
+                    rainfall_mmhr DOUBLE PRECISION
+                );
+            """)
+        conn.commit()
+        cur.close()
+        conn.close()
+        print(f"✅ PostgreSQL table '{self.name_sat}_rainfall' ready.")
+
+        # 4. สร้าง lat/lon ตามพื้นที่ crop
+        height, width = cropped_data.shape
+        lat_vals = np.linspace(round(self.lat_max, 1), round(self.lat_min, 1), height, endpoint=False)
+        lon_vals = np.linspace(round(self.long_min, 1), round(self.long_max, 1), width, endpoint=False)
+        # 5. เชื่อมต่อ PostgreSQL
+        try:
+            conn = psycopg2.connect(
+                host=self.PG_HOST,
+                dbname=self.PG_DB,
+                user=self.PG_USER,
+                password=self.PG_PASSWORD,
+                port=self.PG_PORT
+            )
+            cur = conn.cursor()
+        except Exception as e:
+            print(f"❌ ไม่สามารถเชื่อมต่อ PostgreSQL ได้: {e}")
+            return
+
+        # 6. สร้างรายการข้อมูลฝนแต่ละพิกเซล
+        rows = []
+        for y in range(height):
+            for x in range(width):
+                rainfall = cropped_data[y, x]
+                if not np.isnan(rainfall):
+                    rows.append((
+                        file_name,
+                        f"{self.year}-{self.month}-{self.day}",
+                        self.file_time[-4:],  # HHMM
+                        round(float(lat_vals[y]),2),
+                        round(float(lon_vals[x]),2),
+                        float(rainfall)
+                    ))
+        # 7. Insert แบบ bulk
+        if rows:
+            try:
+                args_str = ",".join(cur.mogrify("(%s,%s,%s,%s,%s,%s)", row).decode("utf-8") for row in rows)
+                cur.execute(f"INSERT INTO {self.name_sat}_rainfall (file_name, date, time, lat, lon, rainfall_mmhr) VALUES " + args_str)
+                conn.commit()
+                print(f"✅ Inserted {len(rows)} rows into PostgreSQL!")
+            except Exception as e:
+                print(f"❌ เกิดข้อผิดพลาดขณะ insert: {e}")
+                conn.rollback()
+        else:
+            print("☁️ ไม่มีฝนในช่วงเวลานี้ (ทุกค่าคือ NaN)")
+        cur.close()
+        conn.close()
+
