@@ -33,5 +33,5 @@ def get_rainfall_data(date_str, lat_val, lon_val):
     conn.close()
     return df
 
-df = get_rainfall_data("2024-09-10", 20.3, 99.7)
+df = get_rainfall_data("2024-01-10", 20.7, 99.9)
 print(df)

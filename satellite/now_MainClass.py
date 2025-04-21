@@ -114,7 +114,8 @@ class SatelliteRain_now_realtime:
                     time TEXT,
                     lat DOUBLE PRECISION,
                     lon DOUBLE PRECISION,
-                    rainfall_mmhr DOUBLE PRECISION
+                    rainfall_mmhr DOUBLE PRECISION,
+                    UNIQUE(file_name, date, "time", lat, lon)
                 );
             """)
         conn.commit()
@@ -158,7 +159,15 @@ class SatelliteRain_now_realtime:
         if rows:
             try:
                 args_str = ",".join(cur.mogrify("(%s,%s,%s,%s,%s,%s)", row).decode("utf-8") for row in rows)
-                cur.execute(f"INSERT INTO {self.name_sat}_rainfall (file_name, date, time, lat, lon, rainfall_mmhr) VALUES " + args_str)
+                cur.execute(
+                    f"""
+                                    INSERT INTO {self.name_sat}_rainfall (
+                                        file_name, date, "time", lat, lon, rainfall_mmhr
+                                    ) 
+                                    VALUES {args_str}
+                                    ON CONFLICT (file_name, date, "time", lat, lon) DO NOTHING;
+                                """
+                )
                 conn.commit()
                 print(f"✅ Inserted {len(rows)} rows into PostgreSQL!")
             except Exception as e:
@@ -287,9 +296,11 @@ class SatelliteRain_now:
                     time TEXT,
                     lat DOUBLE PRECISION,
                     lon DOUBLE PRECISION,
-                    rainfall_mmhr DOUBLE PRECISION
+                    rainfall_mmhr DOUBLE PRECISION,
+                    UNIQUE(file_name, date, "time", lat, lon)
                 );
             """)
+
         conn.commit()
         cur.close()
         conn.close()
@@ -331,7 +342,15 @@ class SatelliteRain_now:
         if rows:
             try:
                 args_str = ",".join(cur.mogrify("(%s,%s,%s,%s,%s,%s)", row).decode("utf-8") for row in rows)
-                cur.execute(f"INSERT INTO {self.name_sat}_rainfall (file_name, date, time, lat, lon, rainfall_mmhr) VALUES " + args_str)
+                cur.execute(
+                    f"""
+                    INSERT INTO {self.name_sat}_rainfall (
+                        file_name, date, "time", lat, lon, rainfall_mmhr
+                    ) 
+                    VALUES {args_str}
+                    ON CONFLICT (file_name, date, "time", lat, lon) DO NOTHING;
+                """
+                )
                 conn.commit()
                 print(f"✅ Inserted {len(rows)} rows into PostgreSQL!")
             except Exception as e:

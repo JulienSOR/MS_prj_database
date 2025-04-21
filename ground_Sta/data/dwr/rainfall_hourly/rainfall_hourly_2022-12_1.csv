@@ -1,0 +1,3 @@
+tele_station_oldcode,station_name,tele_station_lat,tele_station_long,area_name,tambon_name,amphoe_name,province_name,agency_name,rainfall_datetime,rainfall1h
+STN0010,บ้านมูเซอป่ากล้วย,20.298745,99.811260,ภาคเหนือ,แม่ฟ้าหลวง,แม่ฟ้าหลวง,เชียงราย,กรมทรัพยากรน้ำ ,2022-12-23 08:00:00+07:00,0.0
+STN0010,บ้านมูเซอป่ากล้วย,20.298745,99.811260,ภาคเหนือ,แม่ฟ้าหลวง,แม่ฟ้าหลวง,เชียงราย,กรมทรัพยากรน้ำ ,2022-12-23 18:00:00+07:00,0.0

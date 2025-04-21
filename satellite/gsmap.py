@@ -17,6 +17,7 @@ X2 = int((90 - round(LAT_MIN, 1)) * 10)
 Y1 = int((180 + round(LON_MIN, 1)) * 10)
 Y2 = int((180 + round(LON_MAX, 1)) * 10)
 
+
 # Connection Postgresql config
 PG_HOST = "localhost"
 PG_DB = "gsmap_db"
@@ -130,7 +131,7 @@ def download_gsmap_data(ftp_host, username, password, remote_dir, local_dir, yea
 def crop_gsmap_data(input_file, output_file):
     """Crops the GSMaP data and saves it as a NumPy array."""
     with nc.Dataset(input_file, 'r') as dataset:
-
+        #print(dataset.variables)
         if 'hourlyPrecipRate' in dataset.variables:
             rain_var = 'hourlyPrecipRate'
         elif 'hourlyPrecipRateGC' in dataset.variables:
@@ -140,13 +141,14 @@ def crop_gsmap_data(input_file, output_file):
             return
 
         rain_data = dataset.variables[rain_var][:]
+        #print(rain_data)
         if rain_data.ndim == 3:
             rain_data = rain_data[0]  # First time step if applicable
 
         rain_data = rain_data[::-1]  # Flip if needed
 
         cropped_data = np.ma.filled(rain_data[X1:X2, Y1:Y2].astype(float), fill_value=np.nan)
-
+        print(cropped_data)
         np.save(output_file, cropped_data)  # ✅ Ensure correct NumPy save format
         print(f"Cropped data saved: {output_file}")
 def show_cropped_data(cropped_file):
@@ -254,7 +256,7 @@ for year in year_range:
 
                     if os.path.exists(output_path):
                         # Step 3: Show the cropped product
-                        #show_cropped_data(output_path)
+                        show_cropped_data(output_path)
 
                         # Step 4: Insert to PostgreSQL
                         # Step 4: Insert to PostgreSQL

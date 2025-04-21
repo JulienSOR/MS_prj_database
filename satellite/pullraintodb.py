@@ -10,9 +10,11 @@ LON_MAX, LON_MIN = 100.00, 99.30
 name_sat = "now"
 
 # time
-years = [2024]
-months = list(range(1,13,1))
+years = [2023]
+#months = list(range(4,5,1))
+months = list(range(10,13,1))
 hours = [f"{i:02}" for i in range(0,24,1)]
+#hours = [f"{i:02}" for i in range(1,2,1)]
 minutes = ["00","30"]
 
 # 2. run
@@ -21,6 +23,7 @@ for year in years:
     for month in months:
         num_days = calendar.monthrange(year, month)  # ได้จำนวนวันของเดือนนั้น
         for day in range(1, num_days[1]+1): # ตามจำนวนวัน
+        #for day in range(1, 20):
             for hour in hours:
                 for minute in minutes:
                     day_str = f"{day:02d}"
